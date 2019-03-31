@@ -1,6 +1,13 @@
 from collections import Counter
 
-def experiment(event, sample_draw, n=10000):
+def union(*events):
+    return lambda result: any([ev(result) for ev in events])
+    
+def intersection(*events):
+    return lambda result: all([ev(result) for ev in events])
+   
+def complement(event):
+    return lambda result: not event(result)
 
 class Experiment:
     def __init__(self, result_drawer):
