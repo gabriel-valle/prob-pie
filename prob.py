@@ -28,9 +28,11 @@ class Experiment:
         self.sample_draw = result_drawer
         self.events = {}
 
-    def estimate(self, event, n=10000):
+    def estimate(self, event, given=None, n=10000):
         draws = []
         for _ in range(n):
             draws.append(self.sample_draw())
+        if callable(given):
+            draws = filter(given, draws)
         results = list(map(event, draws))
-        return results.count(True)/n
+        return results.count(True)/len(results)
