@@ -1,16 +1,18 @@
 from collections import Counter
 
 def fact(n):
-    res = 1
-    for i in range(1,n+1):
-        res *= i
-    return res
+    for i in range(1,n):
+        n *= i
+    return n
 
 def perm(n, k):
-    return fact(n)/fact(n-k)
+    low = max(n,n-k)
+    for i in range(low, n):
+        n *= i
+    return n
 
 def choose(n,k):
-    return fact(n)/(fact(k)*fact(n-k))
+    return perm(n, k)/fact(min(n,n-k))
 
 def union(*events):
     return lambda result: any([ev(result) for ev in events])
